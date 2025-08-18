@@ -150,7 +150,6 @@
 
         <div class="col-12 row" style="margin-top:6px">
           <button id="calcBtn">Get My Estimate</button>
-          <button class="secondary" id="saveBtn" title="Send to CRM if configured">Save to CRM</button>
           <button class="secondary" id="printBtn" title="Print or Save as PDF">Download PDF</button>
         </div>
 
@@ -295,34 +294,6 @@ document.getElementById('calcBtn').addEventListener('click', ()=>{
 
 document.getElementById('printBtn').addEventListener('click',()=>window.print());
 
-document.getElementById('saveBtn').addEventListener('click', async ()=>{
-  const webhook = qp.get('webhook') || '';
-  if(!webhook){ alert('No CRM webhook configured. Add ?webhook=<URL-ENCODED> to the page URL.'); return; }
-  const {low,high,total,riHours,riCost,extraCost,panelKey} = calc();
-  const payload = {
-    name: document.getElementById('custName').value || '',
-    phone: document.getElementById('custPhone').value || '',
-    email: document.getElementById('custEmail').value || '',
-    estimate_low: low,
-    estimate_high: high,
-    estimate_mid: Math.round((low+high)/2),
-    estimate_total_calc: total,
-    brand,
-    panel: panelKey,
-    ri_hours: riHours,
-    ri_cost: riCost,
-    polish_or_protect_cost: extraCost,
-    source: 'PDR Calculator • Non-Hail',
-    timestamp: new Date().toISOString()
-  };
-  try{
-    const res = await fetch(webhook,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-    if(!res.ok) throw new Error('non-ok');
-    alert('Saved to CRM!');
-  }catch(e){
-    console.error(e); alert('Could not send to CRM (CORS or URL issue).');
-  }
-});
 </script>
 </body>
 </html>
