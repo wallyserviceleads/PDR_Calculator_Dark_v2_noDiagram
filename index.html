@@ -165,25 +165,17 @@
 // --- Brand controls via URL params ---
 const qp = new URLSearchParams(location.search);
 const brand = qp.get('brand') || 'Columbia Dent Company';
-const logo = qp.get('logo') || '';
+const logo = qp.get('logo') || 'https://storage.googleapis.com/msgsndr/KINNI65MvR0NciOCHWzB/media/6657e11e1848ae80998c11f2.png';
 const accent = qp.get('color') || '#FA0000';
 document.documentElement.style.setProperty('--accent', accent);
 document.documentElement.style.setProperty('--ring', `rgba(${hex2rgb(accent).join(',')},.2)`);
 document.title = brand + ' • PDR Estimate';
 document.querySelector('.badge').textContent = brand;
 
-// Logo placeholder
+// Set brand logo
 const logoImg = document.getElementById('brandLogo');
-if(logo){ logoImg.src = logo; logoImg.alt = brand + ' logo'; }
-else {
-  const c = document.createElement('canvas'); c.width=56; c.height=56;
-  const ctx = c.getContext('2d');
-  ctx.fillStyle = '#111'; ctx.fillRect(0,0,56,56);
-  ctx.fillStyle = accent; ctx.font = 'bold 14px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
-  ctx.textAlign='center'; ctx.textBaseline='middle';
-  ctx.fillText('CDC', 28, 30);
-  logoImg.src = c.toDataURL();
-}
+logoImg.src = logo;
+logoImg.alt = brand + ' logo';
 
 // Base pricing table (1–50 inches)
 const baseTable = {
