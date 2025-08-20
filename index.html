@@ -142,6 +142,13 @@
         </div>
 
         <div class="col-4">
+          <label>Vehicle Information (For printing PDF)</label>
+          <input type="number" id="vehYear" placeholder="Year" style="margin-bottom:8px"/>
+          <input type="text" id="vehMake" placeholder="Make" style="margin-bottom:8px"/>
+          <input type="text" id="vehModel" placeholder="Model"/>
+        </div>
+        
+        <div class="col-4">
           <label>Customer Information (For printing PDF)</label>
           <input type="text" id="custName" placeholder="Name" style="margin-bottom:8px"/>
           <input type="tel" id="custPhone" placeholder="Phone" style="margin-bottom:8px"/>
@@ -272,8 +279,30 @@ document.getElementById('calcBtn').addEventListener('click', ()=>{
   };
   const box = document.getElementById('resultBox');
   box.style.display='block';
+
+  const custName = document.getElementById('custName').value.trim();
+  const custPhone = document.getElementById('custPhone').value.trim();
+  const custEmail = document.getElementById('custEmail').value.trim();
+  const vehYear = document.getElementById('vehYear').value.trim();
+  const vehMake = document.getElementById('vehMake').value.trim();
+  const vehModel = document.getElementById('vehModel').value.trim();
+
+  let infoSection = '';
+  if(custName || custPhone || custEmail || vehYear || vehMake || vehModel){
+    infoSection += '<div style="margin-bottom:8px">';
+    if(custName) infoSection += `<div><strong>Name:</strong> ${custName}</div>`;
+    if(custPhone) infoSection += `<div><strong>Phone:</strong> ${custPhone}</div>`;
+    if(custEmail) infoSection += `<div><strong>Email:</strong> ${custEmail}</div>`;
+    if(vehYear || vehMake || vehModel){
+      const vehicle = [vehYear,vehMake,vehModel].filter(Boolean).join(' ');
+      infoSection += `<div><strong>Vehicle:</strong> ${vehicle}</div>`;
+    }
+    infoSection += '</div><div class="divider"></div>';
+  } 
+  
   box.innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+  ${infoSection}
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
       <div><strong>Estimated Range:</strong> <span class="pill">${money(low)}</span> to <span class="pill">${money(high)}</span></div>
       <div class="pill">${usedMode==='area'?'Square-Inch':'Longest'}</div>
     </div>
