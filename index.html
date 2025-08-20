@@ -58,6 +58,15 @@
     .pill{display:inline-block;padding:2px 8px;background:#101318;border:1px solid var(--outline);border-radius:999px;font-size:12px;margin-right:6px}
     .divider{height:1px;background:var(--outline);margin:16px 0}
     .note{background:#101318;border:1px solid var(--outline);border-radius:12px;padding:10px;color:#e5e7eb}
+  @media print{
+      body{background:#fff;color:#000;}
+      .card,.result,.note{background:#fff;color:#000;border-color:#000;}
+      label,.help,strong{color:#000;}
+      input[type="number"],input[type="text"],input[type="email"],input[type="tel"],select{
+        background:#fff;color:#000;border:1px solid #000;
+      }
+      .pill{background:#fff;color:#000;border:1px solid #000;}
+    }
   </style>
 </head>
 <body>
