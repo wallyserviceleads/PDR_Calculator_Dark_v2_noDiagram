@@ -34,7 +34,7 @@
     h1{margin:0;font-size:22px;font-weight:800;letter-spacing:-.2px}
     .badge{background:var(--accent);color:#fff;padding:6px 10px;border-radius:999px;font-weight:800;letter-spacing:.2px}
     .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-    .grid{display:grid;gap:14px;grid-template-columns:repeat(12,1fr)}
+    .grid{display:grid;column-gap:14px;row-gap:10px;grid-template-columns:repeat(12,1fr)}
     .col-12{grid-column:span 12}.col-8{grid-column:span 8}.col-6{grid-column:span 6}.col-4{grid-column:span 4}.col-3{grid-column:span 3}
     @media(max-width:900px){.col-8,.col-6,.col-4,.col-3{grid-column:span 12}}
     .card{
@@ -122,6 +122,12 @@
             <label class="chip"><input type="radio" name="depth" value="30"/> Deep (+30%)</label>
           </div>
           <div class="help">If the metal looks sharply creased or very pushed-in, pick Deep. Otherwise Shallow or Medium is fine.</div>
+        <div style="margin-top:8px">
+            <label>Extras</label>
+            <div class="row">
+              <label class="chip"><input type="checkbox" id="polishAdd" /> May require polishing/corrosion protection (+$85)</label>
+            </div>
+          </div>
         </div>
 
         <div class="col-4">
@@ -132,13 +138,6 @@
             <label class="chip"><input type="checkbox" value="25" class="factor" data-name="Edge of panel"/> Edge of panel (+25%)</label>
             <label class="chip"><input type="checkbox" value="35" class="factor" data-name="Aluminum panel"/> Aluminum panel (+35%)</label>          </div>
           <div class="help">If you're unsure, leave these off. We’ll confirm in person.</div>
-        </div>
-
-        <div class="col-8">
-          <label>Extras</label>
-          <div class="row">
-            <label class="chip"><input type="checkbox" id="polishAdd" /> May require polishing/corrosion protection (+$85)</label>
-          </div>
         </div>
 
         <div class="col-4">
