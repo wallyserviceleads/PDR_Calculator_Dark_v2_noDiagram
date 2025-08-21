@@ -16,7 +16,6 @@
       --outline: rgba(255,255,255,.08);
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
     body{
       margin:0;
       background:var(--bg);
@@ -59,6 +58,7 @@
     .divider{height:1px;background:var(--outline);margin:16px 0}
     .note{background:#101318;border:1px solid var(--outline);border-radius:12px;padding:10px;color:#e5e7eb}
   @media print{
+      html, body { height: auto; }
       body{background:#fff;color:#000;}
       .card,.result,.note{background:#fff;color:#000;border-color:#000;}
       label,.help,strong{color:#000;}
