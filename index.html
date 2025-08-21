@@ -57,10 +57,13 @@
     .pill{display:inline-block;padding:2px 8px;background:#101318;border:1px solid var(--outline);border-radius:999px;font-size:12px;margin-right:6px}
     .divider{height:1px;background:var(--outline);margin:16px 0}
     .note{background:#101318;border:1px solid var(--outline);border-radius:12px;padding:10px;color:#e5e7eb}
-  @media print{
+    .contact{font-size:14px;margin-top:4px} 
+    @media print{
       html, body { height: auto; }
       body{background:#fff;color:#000;}
+      body,*{color:#000 !important;}
       .card,.result,.note{background:#fff;color:#000;border-color:#000;}
+      .badge{background:#fff;color:#000;border:1px solid #000;}
       label,.help,strong{color:#000;}
       input[type="number"],input[type="text"],input[type="email"],input[type="tel"],select{
         background:#fff;color:#000;border:1px solid #000;
@@ -79,6 +82,7 @@
           <span class="pill">Non‑Hail</span>
         </div>
         <h1>Instant Paintless Dent Repair Estimate</h1>
+        <div id="contactInfo" class="contact"></div>
       </div>
     </header>
 
@@ -183,11 +187,13 @@ const qp = new URLSearchParams(location.search);
 const brand = qp.get('brand') || 'Columbia Dent Company';
 const logo = qp.get('logo') || 'https://storage.googleapis.com/msgsndr/KINNI65MvR0NciOCHWzB/media/6657e11e1848ae80998c11f2.png';
 const accent = qp.get('color') || '#FA0000';
+const contact = qp.get('contact') || 'Call or text: (555) 555-5555 • info@example.com';
 document.documentElement.style.setProperty('--accent', accent);
 document.documentElement.style.setProperty('--ring', `rgba(${hex2rgb(accent).join(',')},.2)`);
 document.title = brand + ' • PDR Estimate';
 document.querySelector('.badge').textContent = brand;
-
+document.getElementById('contactInfo').textContent = contact;
+  
 // Set brand logo
 const logoImg = document.getElementById('brandLogo');
 logoImg.src = logo;
@@ -334,9 +340,11 @@ document.getElementById('printBtn').addEventListener('click',()=>{
   printWindow.document.write(printContents);
   printWindow.document.write('</body></html>');
   printWindow.document.close();
-  printWindow.focus();
-  printWindow.print();
-  printWindow.close();
+  printWindow.onload = () => {
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
+  };
 });
 
 </script>
