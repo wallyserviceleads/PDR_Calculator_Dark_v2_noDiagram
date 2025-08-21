@@ -66,7 +66,7 @@
         background:#fff;color:#000;border:1px solid #000;
       }
       .pill{background:#fff;color:#000;border:1px solid #000;}
-    }
+      .grid > :not(#printArea), #calcBtn, #printBtn, .card > .help{display:none;}    }
   </style>
 </head>
 <body>
@@ -168,8 +168,9 @@
           <button class="secondary" id="printBtn" title="Print or Save as PDF">Download PDF</button>
         </div>
 
-        <div class="col-12">
-          <div class="result" id="resultBox" aria-live="polite" style="display:none;"></div>
+
+         <div class="col-12" id="printArea">
+         <div class="result" id="resultBox" aria-live="polite" style="display:none;"></div>
         </div>
       </div>
       <div class="help" style="margin-top:10px">This tool is for non‑hail damage. Final pricing may vary after an in‑person evaluation.</div>
@@ -321,7 +322,22 @@ document.getElementById('calcBtn').addEventListener('click', ()=>{
   `;
 });
 
-document.getElementById('printBtn').addEventListener('click',()=>window.print());
+document.getElementById('printBtn').addEventListener('click',()=>{
+  const printContents = document.getElementById('printArea').innerHTML;
+  const brandHeader = document.querySelector('.brand').outerHTML;
+  const styles = document.querySelector('style').outerHTML;
+  const printWindow = window.open('', '', 'width=800,height=600');
+  printWindow.document.write('<html><head><title>Estimate</title>');
+  printWindow.document.write(styles);
+  printWindow.document.write('</head><body>');
+  printWindow.document.write(brandHeader);
+  printWindow.document.write(printContents);
+  printWindow.document.write('</body></html>');
+  printWindow.document.close();
+  printWindow.focus();
+  printWindow.print();
+  printWindow.close();
+});
 
 </script>
 </body>
